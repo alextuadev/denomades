@@ -2,6 +2,7 @@
 import React, { useRef, useContext, useState, useEffect } from 'react';
 import { AppContext } from '../../context/DataProvider';
 import Activity from '../../components/activity';
+import { Link } from 'react-router-dom';
 
 export default function Cart() {
 
@@ -45,12 +46,23 @@ export default function Cart() {
   return (
     <div className="row mt-5">
       <div className="col-md-9">
-        {cart.map(data => (
-          <Activity
-            key={data.id}
-            data={data}
-            addCart={false} />
-        ))}
+        {(cart.length > 0) ?
+          <>
+            {cart.map(data => (
+              <Activity
+                key={data.id}
+                data={data}
+                addCart={false} />
+            ))}
+          </>
+
+          :
+          <div>
+            <h3>No tienes elementos en el carrito </h3>
+            <Link className="" to="/">Volver a las actividades</Link>
+          </div>
+        }
+
       </div>
 
       <div className="col-md-3">

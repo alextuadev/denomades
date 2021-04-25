@@ -19,7 +19,7 @@ function App() {
         <DataProvider>
           <div className="container">
             <div className="row">
-              <div class="col">
+              <div className="col">
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
                   <ul className="navbar-nav mr-auto">
                     <li className="nav-item active">

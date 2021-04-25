@@ -6,16 +6,18 @@ import Activity from '../../components/activity';
 
 export default function ActivityPage() {
   const [activities, setActivity] = useState([]);
+  const [error, setError] = useState(false);
 
 
   async function getActivities() {
     try {
       const response = await fetch('https://denomadesapi.herokuapp.com/activities');
       let activities = await response.json()
-      console.log(activities);
       setActivity(activities);
       setLoading(false);
     } catch (e) {
+      setError(true)
+      setLoading(false);
       console.warn("error", e)
     }
   }
@@ -28,12 +30,15 @@ export default function ActivityPage() {
     <div className="row mt-5">
 
       {isLoading &&
-        <div className="spinner-border" role="status">
-          <span className="sr-only">Cargango las actividades...</span>
+        <div className="container-loading">
+          <div className="spinner-border" role="status">
+            <span className="sr-only">Cargando las actividades...</span>
+          </div>
+          <div className="d-block mt-1">Cargando las actividades...</div>
         </div>
       }
 
-      {!isLoading &&
+      {(!isLoading && !error) &&
         <>
           <div className="col-12 mb-4">
             <h2>Actividades</h2>
@@ -45,6 +50,9 @@ export default function ActivityPage() {
               addCart={true} />
           ))}
         </>
+      }
+      {(!isLoading && error) &&
+        <h3 className="text-center">Ocurrio un error al cargar las actividades, intenta nuevamente </h3>
       }
 
     </div>

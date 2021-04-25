@@ -45,3 +45,11 @@
   border-top-left-radius: calc(0.3125rem - 1px);
   border-top-right-radius: calc(0.3125rem - 1px);
 }
+
+.container-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  flex-direction: column;
+}
