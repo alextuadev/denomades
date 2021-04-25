@@ -53,10 +53,10 @@ export default function ActivityPage() {
       {(!isLoading && !error) &&
         <>
           <div className="col-12 mb-4">
-            <div className="">
+            <div className="containerTitle">
               <h2>Actividades</h2>
               <div className="containerCurencies">
-                <ul>
+                <ul className="currency">
                   <li onClick={() => baseCurrency('CLP')}>CLP</li>
                   <li onClick={() => baseCurrency('USD')}>USD</li>
                 </ul>

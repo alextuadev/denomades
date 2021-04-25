@@ -27,9 +27,18 @@ function App() {
                     <a className="navbar-brand" href="#">
                       <img className="img-responsive logo" src={logo} />
                     </a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <input type="checkbox" id="navbar-toggle-cbox" />
+
+                    <label for="navbar-toggle-cbox" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                       <span className="navbar-toggler-icon"></span>
-                    </button>
+                    </label>
+
+
+
+
+
+
+
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
