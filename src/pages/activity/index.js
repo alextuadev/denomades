@@ -2,13 +2,19 @@
 import React, { useRef, useState, useEffect, useContext } from 'react';
 import Activity from '../../components/activity';
 import { AppContext } from '../../context/DataProvider';
-import { getActivities } from '../../services/api';
+import { getActivities, getCurrencies } from '../../services/api';
 
 export default function ActivityPage() {
   const [activities, setActivity] = useState([]);
   const [error, setError] = useState(false);
 
-  const { setBaseCurrency } = useContext(AppContext);
+  const { setBaseCurrency, setCurrencies } = useContext(AppContext);
+
+  async function fillCurrencies() {
+    const response = await getCurrencies();
+    let currencies = await response.json();
+    setCurrencies(currencies);
+  }
 
   async function fillActivities() {
     try {
@@ -28,6 +34,7 @@ export default function ActivityPage() {
   }
 
   useEffect(() => fillActivities(), []);
+  useEffect(() => fillCurrencies(), []);
 
   const [isLoading, setLoading] = useState(true);
 
