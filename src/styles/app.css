@@ -53,3 +53,6 @@
   flex: 1;
   flex-direction: column;
 }
+.logo{
+  max-height: 50px;
+}

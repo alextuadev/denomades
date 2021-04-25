@@ -8,12 +8,15 @@ import '../../styles/app.css';
 export default function Activity({ data, addCart }) {
 
   const { cart, setCart } = useContext(AppContext);
-  
+
 
   const addElementCart = (data) => {
     let elements = cart;
     elements.push(data);
     setCart(elements)
+  }
+  const convertMoney = (currency, price) => {
+    return `${currency} ${price}`
   }
 
   const classContainer = addCart ? "col-md-6 col-lg-6 col-xl-4" : "col-lg-9";
@@ -28,7 +31,7 @@ export default function Activity({ data, addCart }) {
 
           <div className="position-absolute price">
             <div className="px-3 pb-2">
-              <h2 className="h5 text-white mb-0 font-weight-bold">{data.currency}{data.price}</h2>
+              <h2 className="h5 text-white mb-0 font-weight-bold"> { convertMoney(data.currency,data.price)}</h2>
             </div>
           </div>
         </div>

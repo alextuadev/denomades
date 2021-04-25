@@ -3,23 +3,22 @@ import React, { useRef, useContext, useState, useEffect } from 'react';
 import { AppContext } from '../../context/DataProvider';
 import Activity from '../../components/activity';
 import { Link } from 'react-router-dom';
+import { formatMoney } from '../../utils';
+import { getCurrencies } from '../../services/api';
 
 export default function Cart() {
 
-  const { cart } = useContext(AppContext);
+  const { cart, baseCurrency, setBaseCurrency } = useContext(AppContext);
 
   const [isLoading, setLoading] = useState(true);
-  const [baseCurrency, setBaseCurrency] = useState("CLP");
+  // const [baseCurrency, setBaseCurrency] = useState("CLP");
+  
   const [totalCart, setTotalCart] = useState(0);
 
-  const formatMoney = money => {
-    return (money).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-  }
-
-  async function getCurrencies() {
+  async function formatCurrencies() {
     console.log("elemtns on cart", cart)
     try {
-      const response = await fetch('https://denomadesapi.herokuapp.com/currencies');
+      const response = await getCurrencies();
       let currencies = await response.json();
       let change = 'CLPCLP';
       let nPrice;
@@ -41,7 +40,7 @@ export default function Cart() {
     }
   }
 
-  useEffect(() => getCurrencies(), []);
+  useEffect(() => formatCurrencies(), []);
 
   return (
     <div className="row mt-5">

@@ -1,17 +1,18 @@
 
-import React, { useRef, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import Activity from '../../components/activity';
-
+import { AppContext } from '../../context/DataProvider';
+import { getActivities } from '../../services/api';
 
 export default function ActivityPage() {
   const [activities, setActivity] = useState([]);
   const [error, setError] = useState(false);
 
+  const { setBaseCurrency } = useContext(AppContext);
 
-  async function getActivities() {
+  async function fillActivities() {
     try {
-      const response = await fetch('https://denomadesapi.herokuapp.com/activities');
+      const response = await getActivities();
       let activities = await response.json()
       setActivity(activities);
       setLoading(false);
@@ -21,8 +22,12 @@ export default function ActivityPage() {
       console.warn("error", e)
     }
   }
+  const baseCurrency = (currency) => {
+    console.log(currency);
+    setBaseCurrency(currency);
+  }
 
-  useEffect(() => getActivities(), []);
+  useEffect(() => fillActivities(), []);
 
   const [isLoading, setLoading] = useState(true);
 
@@ -41,7 +46,15 @@ export default function ActivityPage() {
       {(!isLoading && !error) &&
         <>
           <div className="col-12 mb-4">
-            <h2>Actividades</h2>
+            <div className="">
+              <h2>Actividades</h2>
+              <div className="containerCurencies">
+                <ul>
+                  <li onClick={() => baseCurrency('CLP')}>CLP</li>
+                  <li onClick={() => baseCurrency('USD')}>USD</li>
+                </ul>
+              </div>
+            </div>
           </div>
           {activities.map(data => (
             <Activity
